@@ -6,9 +6,7 @@ class EventsController < ApplicationController
   def index
     #@events = Event.all.after.sorted
     @events = Event.all.sorted
-    puts 'before function'
-    #JoinMailer.join_email_sender(@events[0]).deliver_now
-    puts 'after function'
+    JoinMailer.send_join_email(@events[0]).deliver_now
     @tag_dict = Hash.new
     tags = Tag.all
     tags.each do |tag|
