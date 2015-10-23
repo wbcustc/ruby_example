@@ -13,13 +13,13 @@ class TagsController < ApplicationController
   end
 
   # GET /tags/new
-  def new
-    @tag = Tag.new
-  end
-
-  # GET /tags/1/edit
-  def edit
-  end
+  # def new
+  #   @tag = Tag.new
+  # end
+  #
+  # # GET /tags/1/edit
+  # def edit
+  # end
 
   # POST /tags
   # POST /tags.json
@@ -37,29 +37,29 @@ class TagsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tags/1
-  # PATCH/PUT /tags/1.json
-  def update
-    respond_to do |format|
-      if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tag }
-      else
-        format.html { render :edit }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # # PATCH/PUT /tags/1
+  # # PATCH/PUT /tags/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @tag.update(tag_params)
+  #       format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @tag }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @tag.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /tags/1
   # DELETE /tags/1.json
-  def destroy
-    @tag.destroy
-    respond_to do |format|
-      format.html { redirect_to tags_url, notice: 'Tag was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @tag.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to tags_url, notice: 'Tag was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

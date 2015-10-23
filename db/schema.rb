@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 20151022215836) do
     t.datetime "event_at"
     t.float    "lat"
     t.float    "lng"
-    t.string   "tags",                    array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
