@@ -10,8 +10,6 @@ class EventsController < ApplicationController
     tags.each do |tag|
       @tag_dict[tag.tag_name] = tag.photo_url
     end
-    puts @tag_dict
-
   end
 
   # GET /events/1
@@ -88,6 +86,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :address, :event_at, :lat, :lng)
+      params.require(:event).permit(:title, :address, :event_at, :lat, :lng, :description, :special_instructions)
     end
 end
