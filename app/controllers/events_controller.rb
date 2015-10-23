@@ -5,6 +5,11 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all.after.sorted
+    @tag_dict = Hash.new
+    tags = Tag.all
+    tags.each do |tag|
+      @tag_dict[tag.tag_name] = tag.photo_url
+    end
   end
 
   # GET /events/1
