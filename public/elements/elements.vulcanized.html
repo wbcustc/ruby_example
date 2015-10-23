@@ -14765,7 +14765,8 @@ Any number of components can use `<google-maps-api>` elements, and the library w
     <style>
       :root {
         --dark-primary-color: #303F9F;
-        --default-primary-color: #3F51B5;
+        --default-primary-color: #555;
+        /*--default-primary-color: #3F51B5;*/
         --light-primary-color: #C5CAE9;
         --text-primary-color: #ffffff; /*text/icons*/
         --accent-color: #FF4081;
@@ -14781,6 +14782,19 @@ Any number of components can use `<google-maps-api>` elements, and the library w
         --paper-menu-background-color: #fff;
         --menu-link-color: #111111;
       }
+      paper-scroll-header-panel {
+        --paper-scroll-header-panel-full-header: {
+          background-image: url("../../images/toolbar_bg.jpg");
+        };
+        --paper-scroll-header-panel-condensed-header: {
+          background-color: var(--default-primary-color);
+        };
+      }
+
+      paper-toolbar {
+        --paper-toolbar-background: transparent;
+      }
+
       .page-title {
         @apply(--paper-font-display2);
       }
@@ -15000,12 +15014,18 @@ Any number of components can use `<google-maps-api>` elements, and the library w
         width: calc(98.66%);
         margin: 16px auto;
         background: white;
+        transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1), width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
       }
+
       @media (max-width: 600px) {
 
         :host ::content paper-material {
           --menu-container-display: none;
-          width: calc(97.33%);
+          width: calc(80%);
+        }
+
+        :host ::content paper-material.active {
+          width: calc(95%);
         }
       }
 
@@ -15040,6 +15060,9 @@ Any number of components can use `<google-maps-api>` elements, and the library w
       /* my card header*/
       :host ::content .my-card-header {
         background-color: var(--default-primary-color);
+        /*background-image: url("../images/backgammon.jpeg"), -webkit-linear-gradient(top, rgba(255,255,255,0.5), rgba(255,255,255,0.5));*/
+        background-repeat: no-repeat;
+        background-size: cover;
         color: var(--text-primary-color);
       }
 
@@ -15053,6 +15076,7 @@ Any number of components can use `<google-maps-api>` elements, and the library w
       }
       /* my card footer*/
       :host ::content .my-card-footer {
+        position: relative;
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
@@ -15065,6 +15089,10 @@ Any number of components can use `<google-maps-api>` elements, and the library w
         border-top: solid 1px var(--divider-color);
       }
 
+      :host ::content .my-card-footer.active {
+        background-color: var(--default-primary-color);
+        color: var(--text-primary-color);
+      }
       /* my card location*/
       :host ::content .my-card-location {
         display: -ms-flexbox;
@@ -15081,29 +15109,66 @@ Any number of components can use `<google-maps-api>` elements, and the library w
       :host ::content google-map {
         height: 200px;
       }
+
+      /* badge */
+      :host ::content .badge {
+        font-size: 10px;
+        padding: 4px;
+        border-radius: 10px;
+        background-color: var(--default-primary-color);
+      }
+
+      /* description */
+      :host ::content .info {
+        width: 100%;
+        word-wrap: break-word;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: solid 1px var(--divider-color);
+      }
+
+      /* fab */
+      :host ::content paper-fab {
+        position: absolute;
+        right: 20px;
+        top: -30px;
+      }
+
+      /* detail button */
+      #showDetail {
+        position: relative;
+        top: 4px;
+        left: 20px;
+      }
     </style>
-    <paper-material elevation="1" animated="">
-      <div class="my-card-item my-card-header">
-        <h2>The Magics</h2>
-        <span class="badge">MOMA</span>
+    <paper-material id="cardContainer" elevation="1">
+      <div id="header" class="my-card-item my-card-header">
+        <h2>{{title}}</h2>
+        <span class="badge">{{tag}}</span>
       </div>
       <div class="my-card-item my-card-content">
-        <h3>{{title}}</h3>
-        <paper-button id="btnToggleMap">
-          Location: <span>{{location}}</span> <iron-icon icon="expand-more"></iron-icon>
+        <iron-collapse id="infoContainer">
+          <div class="info collapse-content">About: <span>{{descriptions}}</span></div>
+          <div class="info collapse-content">Instruction: <span>{{instructions}}</span></div>
+        </iron-collapse>
+        <paper-button id="btnToggleMap" on-tap="toggleMap">
+          <span>{{location}}</span> <iron-icon id="iconToggleMap" icon="expand-more"></iron-icon>
         </paper-button>
       </div>
       <div class="my-card-item my-card-location">
       </div>
       <iron-collapse id="mapContainer">
-        <google-map id="mapLocation" class="collapse-content" latitude="{{latitude}}" longitude="{{longitude}}"></google-map>
+        <google-map id="mapLocation" class="collapse-content" latitude="{{latitude}}" longitude="{{longitude}}">
+          <google-map-marker latitude="{{latitude}}" longitude="{{longitude}}" title="{{title}}"></google-map-marker>
+        </google-map>
       </iron-collapse>
-      <div class="my-card-item my-card-footer">
-        <div class="my-card-time">{{time}}</div>
+      <div id="footer" class="my-card-item my-card-footer">
+        <div class="my-card-time">Time: <span>{{time}}</span></div>
         <span class="flex"></span>
-        <paper-button>
-          <iron-icon icon="arrow-forward"></iron-icon> Show Details
+        <paper-button id="showDetail" on-tap="toggleDetail">
+          Details <iron-icon id="iconToggleDetail" icon="arrow-forward"></iron-icon>
         </paper-button>
+        <paper-fab id="fabAdd" icon="add" style="display: none;" on-tap="showToast"></paper-fab>
       </div>
     </paper-material>
   </template>
@@ -15114,22 +15179,71 @@ Any number of components can use `<google-maps-api>` elements, and the library w
 
       Polymer({
         is: 'my-card',
+        isJoin: false,
+        isMapShowed: false,
+        isDetailedShowed: false,
+        showToast: function () {
+          var event; // The custom event that will be created
+
+          if (document.createEvent) {
+            event = document.createEvent('HTMLEvents');
+            event.initEvent('paper-fab-clicked', true, true);
+          } else {
+            event = document.createEventObject();
+            event.eventType = 'paper-fab-clicked';
+          }
+
+          event.eventName = 'paper-fab-clicked';
+
+          if (document.createEvent) {
+            this.dispatchEvent(event);
+          } else {
+            this.fireEvent('on' + event.eventType, event);
+          }
+          this.$.footer.className += ' active';
+          this.toggleDetail();
+        },
+        toggleDetail: function () {
+          if (this.isDetailShowed) {
+            this.$.cardContainer.className =
+              this.$.cardContainer.className.slice(0, -7);
+            this.$.iconToggleDetail.icon = 'arrow-forward';
+            this.$.fabAdd.style.display = 'none';
+          }
+          else {
+            this.$.cardContainer.className += ' active';
+            this.$.iconToggleDetail.icon = 'arrow-back';
+            this.$.fabAdd.style.display = 'block';
+          }
+          this.$.infoContainer.toggle();
+          this.isDetailShowed = !this.isDetailShowed;
+        },
+        toggleMap: function () {
+          this.isMapShowed = !this.isMapShowed;
+          this.$.mapContainer.toggle();
+          this.$.mapLocation.resize();
+          if (this.isMapShowed) {
+            this.$.iconToggleMap.icon = 'expand-less';
+          }
+          else {
+            this.$.iconToggleMap.icon = 'expand-more';
+          }
+        },
         properties: {
           time: String,
           latitude: String,
           longitude: String,
           title: String,
-          location: String
-
+          location: String,
+          imgUrl: String,
+          descriptions: String,
+          instructions: String,
+          tag: String
         },
-        created: function() {
+        created: function () {
         },
-        ready: function() {
-          // this.$.mapContainer.opened = true;
-          this.$.btnToggleMap.onclick = function () {
-            this.$.mapContainer.toggle();
-            this.$.mapLocation.resize();
-          }.bind(this);
+        ready: function () {
+          this.$.header.style.backgroundImage = 'url('+this.imgUrl+')';
         }
       });
     })();
