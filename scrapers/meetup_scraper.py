@@ -66,10 +66,10 @@ def get_events():
                           'lat':                  item['venue']['lat'],
                           'lng':                  item['venue']['lon']}
                           #'number_of_attendees':  item['yes_rsvp_count']}
-            #if 'description' in item:
-            #    e['event']['description'] = strip_tags(item['description'])
-            #if 'how_to_find_us' in item:
-            #    e['event']['special_instructions'] = strip_tags(item['how_to_find_us'])
+            if 'description' in item:
+                e['event']['description'] = strip_tags(item['description'])
+            if 'how_to_find_us' in item:
+                e['event']['special_instructions'] = strip_tags(item['how_to_find_us'])
             e['tags']  = [tag]
             print json.dumps(e)
             r = requests.post('http://localhost:3000/events.json', json = e)
