@@ -4,7 +4,8 @@
     <style>
       :root {
         --dark-primary-color: #303F9F;
-        --default-primary-color: #3F51B5;
+        --default-primary-color: #555;
+        /*--default-primary-color: #3F51B5;*/
         --light-primary-color: #C5CAE9;
         --text-primary-color: #ffffff; /*text/icons*/
         --accent-color: #FF4081;
@@ -20,6 +21,19 @@
         --paper-menu-background-color: #fff;
         --menu-link-color: #111111;
       }
+      paper-scroll-header-panel {
+        --paper-scroll-header-panel-full-header: {
+          background-image: url('../../images/toolbar_bg.jpg');
+        };
+        --paper-scroll-header-panel-condensed-header: {
+          background-color: var(--default-primary-color);
+        };
+      }
+
+      paper-toolbar {
+        --paper-toolbar-background: transparent;
+      }
+
       .page-title {
         @apply(--paper-font-display2);
       }
