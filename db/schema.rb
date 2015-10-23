@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20151022215836) do
   create_table "events", force: :cascade do |t|
     t.string   "title"
     t.string   "address"
-    t.datetime "event_at"
+    t.string   "event_at"
     t.float    "lat"
     t.float    "lng"
     t.datetime "created_at", null: false
