@@ -1,27 +1,33 @@
-<p id="notice"><%= notice %></p>
+<body unresolved class="fullbleed layout vertical">
+  <span id="browser-sync-binding"></span>
+  <template is="dom-bind" id="app">
+      <!-- Main Area -->
+    <paper-scroll-header-panel main id="headerPanelMain" condenses flex>
+        <!-- Main Toolbar -->
+      <paper-toolbar id="mainToolbar" class="tall">
+        <!-- Search icons -->
+        <paper-icon-button icon="search"></paper-icon-button>
 
-<h1>Listing Events</h1>
+        <!-- Application name -->
+        <div class="middle middle-container center horizontal layout">
+          <div class="app-name">Pace Board Game</div>
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <!-- Application sub title -->
+        <div class="bottom bottom-container center horizontal layout">
+          <div class="bottom-title paper-font-subhead">Join a board game, anytime, anywhere!</div>
+        </div>
+      </paper-toolbar>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.name %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <!-- Main Content -->
+      <div class="content">
+        <% @events.each do |event| %>
+          <my-card time='<%= event.event_at %>' location='<%= event.address %>' title='<%= event.title %>' latitude='<%= event.lat %>' longitude='<%= event.lng %>'></my-card>
+        <% end %>
+        <my-card></my-card>
+      </div>
+    </paper-scroll-header-panel>
+  </template>
 
-<br>
-
-<%= link_to 'New Event', new_event_path %>
+  <script src="scripts/app.js"></script>
+</body>
