@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  #default from: "paceboardgames@pace.com"
+  default from: "noreply@example.com"
   layout 'mailer'
 end

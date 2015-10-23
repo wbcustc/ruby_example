@@ -4,7 +4,11 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all.after.sorted
+    #@events = Event.all.after.sorted
+    @events = Event.all.sorted
+    puts 'before function'
+    #JoinMailer.join_email_sender(@events[0]).deliver_now
+    puts 'after function'
     @tag_dict = Hash.new
     tags = Tag.all
     tags.each do |tag|
@@ -44,8 +48,6 @@ class EventsController < ApplicationController
             TagToEvent.new(tag_name:tag, event_id:event_id).save
           end
         end
-        JoinMailer.join_email_sender(@event).deliver_now
-
 
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
