@@ -22,7 +22,7 @@
       <!-- Main Content -->
       <div class="content">
         <% @events.each do |event| %>
-          <my-card time='<%= event.event_at %>' location='<%= event.address %>' title='<%= event.title %>' latitude='<%= event.lat %>' longitude='<%= event.lng %>'></my-card>
+          <my-card time='<%= DateTime.parse(Time.at(@event.event_at.to_f / 1000).to_s).strftime('%b %e at %l:%M %p') %>' location='<%= event.address %>' title='<%= event.title %>' latitude='<%= event.lat %>' longitude='<%= event.lng %>'></my-card>
         <% end %>
         <my-card></my-card>
       </div>

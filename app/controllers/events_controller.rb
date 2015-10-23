@@ -44,7 +44,7 @@ class EventsController < ApplicationController
             TagToEvent.new(tag_name:tag, event_id:event_id).save
           end
         end
-        #JoinMailer.join_email_sender(@event).deliver_now
+        JoinMailer.join_email_sender(@event).deliver_now
 
 
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
