@@ -22,7 +22,7 @@
       <!-- Main Content -->
       <div class="content">
         <% @events.each do |event| %>
-          <% tag_name = events.tag_to_events[0].tag_name %>
+          <% tag_name = event.tag_to_events[0].tag_name %>
           <% img_url = @tag_dict[tag_name] %>
 
           <my-card time='<%= DateTime.parse(Time.at(event.event_at.to_f / 1000).to_s).strftime('%b %e %Y at %l:%M %p') %>' descriptions='<%= event.description%>' location='<%= event.address %>' title='<%= event.title %>' latitude='<%= event.lat %>' longitude='<%= event.lng %>' instructions='<%= event.special_instructions %>' tag='<%= tag_name %>' img-url='<%= img_url %>'></my-card>

@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Tag.create(tag_name: "Magic: The Gathering", photo_url: "magic.jpeg")
 Tag.create(tag_name: "Backgammon", photo_url: "backgammon.jpeg")
-Tag.create(tag_name: "Cards Against Humanity", photo_url: "cards_against_humanity.jpeg")
+Tag.create(tag_name: "Cards Against Humanity", photo_url: "cards_against_humanity.png")
 Tag.create(tag_name: "Poker", photo_url: "poker.jpeg")
 Tag.create(tag_name: "Mahjong", photo_url: "mahjong.jpeg")
 Tag.create(tag_name: "Dungeons & Dragons", photo_url: "dungeons_and_dragons.jpeg")

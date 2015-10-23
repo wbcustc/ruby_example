@@ -6,11 +6,11 @@ class EventsController < ApplicationController
   def index
     #@events = Event.all.after.sorted
     @events = Event.all.sorted
-    JoinMailer.send_join_email(@events[0]).deliver_now
+    #JoinMailer.send_join_email(@events[0]).deliver
     @tag_dict = Hash.new
     tags = Tag.all
     tags.each do |tag|
-      @tag_dict[tag.tag_name] = tag.photo_url
+      @tag_dict[tag.tag_name] = '../../images/' + tag.photo_url
     end
   end
 
