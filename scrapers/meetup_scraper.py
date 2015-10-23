@@ -72,7 +72,7 @@ def get_events():
                 e['event']['special_instructions'] = strip_tags(item['how_to_find_us'])
             e['tags']  = [tag]
             print json.dumps(e)
-            r = requests.post('http://localhost:3000/events.json', json = e)
+            r = requests.post('https://glacial-eyrie-6539.herokuapp.com/events.json', json = e)
             print r.json()
 
 get_events()
