@@ -30,8 +30,12 @@ class EventsController < ApplicationController
         tags = params[:tags]
         event_id = @event.id
         valid_tags = Tag.all.select(:tag_name)
+        tag_names = Array.new
+        valid_tags.each do |valid_tag|
+          tag_names.append(valid_tag.tag_name)
+        end
         tags.each do |tag|
-          if valid_tags.include?tag
+          if tag_names.include?tag
             TagToEvent.new(tag_name:tag, event_id:event_id).save
           end
         end
