@@ -39,7 +39,7 @@ def get_events():
 
         # Build the event object to send to Pace Games.
         e = {}
-        t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=19, minute=0).timetuple())*1000
+        t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=15, minute=0).timetuple())*1000
 
         e['event'] = {'title':                name,
                       'address':              '230 Thompson St',
@@ -69,11 +69,11 @@ def get_events():
             # Build the event object to send to Pace Games.
             e = {}
             if 'Friday Night Magic' in name or 'Magic: Drafts' in name:
-                t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=15, minute=30).timetuple())*1000
-            if 'Battle for Zendikar Game Day' in name:
-                t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=10, minute=0).timetuple())*1000
+                t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=11, minute=30).timetuple())*1000
+            elif 'Battle for Zendikar Game Day' in name:
+                t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=6, minute=0).timetuple())*1000
             else:
-                t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=19, minute=0).timetuple())*1000
+                t = time.mktime(datetime.strptime(date, "%m/%d/%Y").replace(hour=15, minute=0).timetuple())*1000
 
             e['event'] = {'title':                name,
                           'address':              '230 Thompson St',
