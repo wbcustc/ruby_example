@@ -4,8 +4,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    #@events = Event.all.after.sorted
-    @events = Event.all.sorted
+    @events = Event.all.after.sorted
     #JoinMailer.send_join_email(@events[0]).deliver
     @tag_dict = Hash.new
     tags = Tag.all
