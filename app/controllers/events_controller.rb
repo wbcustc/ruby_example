@@ -44,7 +44,9 @@ class EventsController < ApplicationController
             TagToEvent.new(tag_name:tag, event_id:event_id).save
           end
         end
-        # puts tags
+        #JoinMailer.join_email_sender(@event).deliver_now
+
+
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
