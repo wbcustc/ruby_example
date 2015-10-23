@@ -6,6 +6,8 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :event_at
       t.float :lat
       t.float :lng
+      t.text :description
+      t.text :special_instructions
       t.timestamps null: false
     end
   end
