@@ -1,0 +1,170 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+
+<dom-module id="my-card">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host ::content .flex {
+        @apply(--layout-flex);
+      }
+
+      /* paper-material */
+      :host ::content paper-material {
+        border-radius: 2px;
+        height: 100%;
+        padding: 0;
+        width: calc(98.66%);
+        margin: 16px auto;
+        background: white;
+      }
+      @media (max-width: 600px) {
+
+        :host ::content paper-material {
+          --menu-container-display: none;
+          width: calc(97.33%);
+        }
+      }
+
+      @media (min-width: 601px) {
+
+        :host ::content paper-material {
+          width: calc(98% + 12px);
+          margin-bottom: 32px;
+        }
+      }
+
+      /* my card item */
+      :host ::content .my-card-item {
+        padding: 16px;
+      }
+
+      @media (max-width: 600px) {
+
+        :host ::content .my-card-item {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+      }
+      @media (min-width: 601px) {
+
+        :host ::content .my-card-item{
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+      }
+
+      /* my card header*/
+      :host ::content .my-card-header {
+        background-color: var(--default-primary-color);
+        color: var(--text-primary-color);
+      }
+
+      /* my card content*/
+      :host ::content .my-card-content {
+        margin: 0;
+      }
+
+      :host ::content .my-card-content paper-button {
+        margin-left: -9px;
+      }
+      /* my card footer*/
+      :host ::content .my-card-footer {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        border-top: solid 1px var(--divider-color);
+      }
+
+      /* my card location*/
+      :host ::content .my-card-location {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      :host ::content google-map {
+        height: 200px;
+      }
+    </style>
+    <paper-material elevation="1" animated>
+      <div class="my-card-item my-card-header">
+        <h2>The Magics</h2>
+        <span class='badge'>MOMA</span>
+      </div>
+      <div class="my-card-item my-card-content">
+        <h3>{{title}}</h3>
+        <paper-button id='btnToggleMap'>
+          Location: <span>{{location}}</span> <iron-icon icon="expand-more"></iron-icon>
+        </paper-button>
+      </div>
+      <div class="my-card-item my-card-location">
+      </div>
+      <iron-collapse id='mapContainer'>
+        <google-map id='mapLocation' class='collapse-content' latitude={{latitude}} longitude="{{longitude}}"></google-map>
+      </iron-collapse>
+      <div class='my-card-item my-card-footer'>
+        <div class='my-card-time'>{{time}}</div>
+        <span class="flex"></span>
+        <paper-button>
+          <iron-icon icon="arrow-forward"></iron-icon> Show Details
+        </paper-button>
+      </div>
+    </paper-material>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-card',
+        properties: {
+          time: String,
+          latitude: String,
+          longitude: String,
+          title: String,
+          location: String
+
+        },
+        created: function() {
+        },
+        ready: function() {
+          // this.$.mapContainer.opened = true;
+          this.$.btnToggleMap.onclick = function () {
+            this.$.mapContainer.toggle();
+            this.$.mapLocation.resize();
+          }.bind(this);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
